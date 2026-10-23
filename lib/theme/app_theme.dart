@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import '../constrants/colors.dart';
 
 class AppTheme {
   static final ThemeData light = ThemeData(
     useMaterial3: true,
-
-    // WARNA UTAMA APLIKASI
+    scaffoldBackgroundColor: AppColors.secondary,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF2563EB),
+      seedColor: AppColors.primary,
+      primary: AppColors.primary,
     ),
-
-    // WARNA LATAR BELAKANG
-    scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+    fontFamily: 'Sans-Serif',
   );
 }
