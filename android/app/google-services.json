@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "406464718797",
+    "project_id": "siap-lapor-280d4",
+    "storage_bucket": "siap-lapor-280d4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406464718797:android:26dee213f4c4fbe4060684",
+        "android_client_info": {
+          "package_name": "com.example.siap_lapor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhyj5KBI3rp5WqHsxZu2d1TsqArgSaVPA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
