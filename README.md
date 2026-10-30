@@ -1,4 +1,4 @@
-## 📢 Sistem Pengaduan Masyarakat
+# 📢 Sistem Pengaduan Masyarakat
 
 Sistem Pengaduan Masyarakat adalah platform berbasis digital yang dirancang untuk memudahkan masyarakat dalam menyampaikan laporan atau keluhan kepada kantor dinas terkait, serta memantau perkembangan status penanganan laporan secara *real-time*.
 
