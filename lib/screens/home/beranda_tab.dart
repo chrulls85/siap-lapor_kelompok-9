@@ -120,7 +120,7 @@ class _BerandaTabState extends State<BerandaTab> {
                     children: [
                       _CategoryItem(
                         icon: Icons.add_road_rounded,
-                        label: 'Jalan & fasilitas',
+                        label: 'Jalan & Fasilitas',
                         onTap: widget.onCreateReport,
                       ),
                       _CategoryItem(
@@ -130,7 +130,7 @@ class _BerandaTabState extends State<BerandaTab> {
                       ),
                       _CategoryItem(
                         icon: Icons.account_balance_outlined,
-                        label: 'Pelayanan',
+                        label: 'Lalu Lintas',
                         onTap: widget.onCreateReport,
                       ),
                     ],
