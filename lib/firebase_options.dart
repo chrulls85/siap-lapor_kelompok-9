@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -44,38 +41,46 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCoBPd88dBiP52u1H90ZAFU00YSiCsVcb8',
-    appId: '1:198218067522:web:dfda2b84e13569b2e7c7db',
-    messagingSenderId: '198218067522',
-    projectId: 'siap-lapor-app-9',
-    authDomain: 'siap-lapor-app-9.firebaseapp.com',
-    storageBucket: 'siap-lapor-app-9.firebasestorage.app',
-    measurementId: 'G-31Y6TT5MPL',
+    apiKey: 'AIzaSyC76NMLXa0xmCHHiz0aCCuY4JaHI11T7Fc',
+    appId: '1:406464718797:web:1ec1a940d144637a060684',
+    messagingSenderId: '406464718797',
+    projectId: 'siap-lapor-280d4',
+    authDomain: 'siap-lapor-280d4.firebaseapp.com',
+    storageBucket: 'siap-lapor-280d4.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA0XDYo0SJwNy0UoySJ2Y25qny1Um_aTJY',
-    appId: '1:198218067522:android:6945531fd9a5b59ae7c7db',
-    messagingSenderId: '198218067522',
-    projectId: 'siap-lapor-app-9',
-    storageBucket: 'siap-lapor-app-9.firebasestorage.app',
+    apiKey: 'AIzaSyDhyj5KBI3rp5WqHsxZu2d1TsqArgSaVPA',
+    appId: '1:406464718797:android:26dee213f4c4fbe4060684',
+    messagingSenderId: '406464718797',
+    projectId: 'siap-lapor-280d4',
+    storageBucket: 'siap-lapor-280d4.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAkxRaoStCpDMWOBE0xtacA1_Hg-9G4ct8',
-    appId: '1:198218067522:ios:8e2057f39f7fe0e2e7c7db',
-    messagingSenderId: '198218067522',
-    projectId: 'siap-lapor-app-9',
-    storageBucket: 'siap-lapor-app-9.firebasestorage.app',
-    iosBundleId: 'com.example.mobileApp',
+    apiKey: 'AIzaSyCvp112IiYisoQNetkZJTH6JF5241kMtig',
+    appId: '1:406464718797:ios:3f5652f4b1a15184060684',
+    messagingSenderId: '406464718797',
+    projectId: 'siap-lapor-280d4',
+    storageBucket: 'siap-lapor-280d4.firebasestorage.app',
+    iosBundleId: 'com.example.siapLapor',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAkxRaoStCpDMWOBE0xtacA1_Hg-9G4ct8',
-    appId: '1:198218067522:ios:8e2057f39f7fe0e2e7c7db',
-    messagingSenderId: '198218067522',
-    projectId: 'siap-lapor-app-9',
-    storageBucket: 'siap-lapor-app-9.firebasestorage.app',
-    iosBundleId: 'com.example.mobileApp',
+    apiKey: 'AIzaSyCvp112IiYisoQNetkZJTH6JF5241kMtig',
+    appId: '1:406464718797:ios:3f5652f4b1a15184060684',
+    messagingSenderId: '406464718797',
+    projectId: 'siap-lapor-280d4',
+    storageBucket: 'siap-lapor-280d4.firebasestorage.app',
+    iosBundleId: 'com.example.siapLapor',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyC76NMLXa0xmCHHiz0aCCuY4JaHI11T7Fc',
+    appId: '1:406464718797:web:5186363e13878d31060684',
+    messagingSenderId: '406464718797',
+    projectId: 'siap-lapor-280d4',
+    authDomain: 'siap-lapor-280d4.firebaseapp.com',
+    storageBucket: 'siap-lapor-280d4.firebasestorage.app',
   );
 }
