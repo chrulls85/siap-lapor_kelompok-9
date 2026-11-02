@@ -18,6 +18,13 @@ class CustomInputField extends StatelessWidget {
   final bool enabled;
   final ValueChanged<String>? onFieldSubmitted;
 
+  // ---- Tambahan untuk kolom panjang / pilihan (tanggal, kategori) ----
+  final int maxLines;
+  final int? minLines;
+  final int? maxLength;
+  final bool readOnly;
+  final VoidCallback? onTap;
+
   const CustomInputField({
     super.key,
     required this.label,
@@ -33,6 +40,11 @@ class CustomInputField extends StatelessWidget {
     this.helperText,
     this.enabled = true,
     this.onFieldSubmitted,
+    this.maxLines = 1,
+    this.minLines,
+    this.maxLength,
+    this.readOnly = false,
+    this.onTap,
   });
 
   OutlineInputBorder _border(Color color, [double width = 1]) {
@@ -66,6 +78,11 @@ class CustomInputField extends StatelessWidget {
           textCapitalization: textCapitalization,
           autofillHints: autofillHints,
           onFieldSubmitted: onFieldSubmitted,
+          maxLines: obscureText ? 1 : maxLines,
+          minLines: obscureText ? null : minLines,
+          maxLength: maxLength,
+          readOnly: readOnly,
+          onTap: onTap,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           style: const TextStyle(fontSize: 14, color: AppColors.textDark),
           decoration: InputDecoration(
@@ -79,6 +96,10 @@ class CustomInputField extends StatelessWidget {
             helperStyle: const TextStyle(
               color: AppColors.textMuted,
               fontSize: 12,
+            ),
+            counterStyle: const TextStyle(
+              color: AppColors.textMuted,
+              fontSize: 11.5,
             ),
             errorMaxLines: 2,
             errorStyle: const TextStyle(color: AppColors.danger, fontSize: 12),

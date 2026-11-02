@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../constrants/colors.dart';
+import '../models/report.dart';
 import 'home/beranda_tab.dart';
+import 'home/buat_aduan_tab.dart';
+import 'home/laporan_tab.dart';
 import 'home/profil_tab.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _index = 0;
+  ReportCategory? _presetCategory; // kategori yang dipilih dari Beranda
 
   void _go(int i) => setState(() => _index = i);
 
@@ -25,14 +29,19 @@ class _HomePageState extends State<HomePage> {
           BerandaTab(
             onCreateReport: () => _go(2),
             onSeeAllReports: () => _go(1),
+            onPickCategory: (c) => setState(() {
+              _presetCategory = c;
+              _index = 2;
+            }),
           ),
-          const _ComingSoonTab(
-            icon: Icons.description_outlined,
-            title: 'Laporan saya',
-          ),
-          const _ComingSoonTab(
-            icon: Icons.add_circle_outline_rounded,
-            title: 'Buat pengaduan',
+          LaporanTab(onCreateReport: () => _go(2)),
+          BuatAduanTab(
+            presetCategory: _presetCategory,
+            onBack: () => _go(0),
+            onSubmitted: () => setState(() {
+              _presetCategory = null;
+              _index = 1;
+            }),
           ),
           const ProfilTab(),
         ],
@@ -62,53 +71,6 @@ class _HomePageState extends State<HomePage> {
             label: 'Profil',
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// Penanda untuk layar yang belum dibuat (Laporan saya, Buat pengaduan).
-class _ComingSoonTab extends StatelessWidget {
-  final IconData icon;
-  final String title;
-
-  const _ComingSoonTab({required this.icon, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 72,
-                height: 72,
-                decoration: BoxDecoration(
-                  color: AppColors.primarySoft,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Icon(icon, size: 34, color: AppColors.primary),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textDark,
-                ),
-              ),
-              const SizedBox(height: 6),
-              const Text(
-                'Layar ini sedang disiapkan.',
-                style: TextStyle(fontSize: 13, color: AppColors.textMuted),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
