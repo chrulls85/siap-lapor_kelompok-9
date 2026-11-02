@@ -21,11 +21,13 @@ String displayNameOf(User? user, Map<String, dynamic>? profile) {
 class BerandaTab extends StatefulWidget {
   final VoidCallback onCreateReport;
   final VoidCallback onSeeAllReports;
+  final ValueChanged<ReportCategory> onPickCategory;
 
   const BerandaTab({
     super.key,
     required this.onCreateReport,
     required this.onSeeAllReports,
+    required this.onPickCategory,
   });
 
   @override
@@ -118,21 +120,12 @@ class _BerandaTabState extends State<BerandaTab> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _CategoryItem(
-                        icon: Icons.add_road_rounded,
-                        label: 'Jalan & Fasilitas',
-                        onTap: widget.onCreateReport,
-                      ),
-                      _CategoryItem(
-                        icon: Icons.cleaning_services_outlined,
-                        label: 'Kebersihan',
-                        onTap: widget.onCreateReport,
-                      ),
-                      _CategoryItem(
-                        icon: Icons.account_balance_outlined,
-                        label: 'Lalu Lintas',
-                        onTap: widget.onCreateReport,
-                      ),
+                      for (final c in ReportCategory.values)
+                        _CategoryItem(
+                          icon: c.icon,
+                          label: c.shortLabel,
+                          onTap: () => widget.onPickCategory(c),
+                        ),
                     ],
                   ),
                   const SizedBox(height: 24),

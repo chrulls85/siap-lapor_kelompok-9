@@ -95,6 +95,17 @@ class AuthService {
     return _db.collection('users').doc(uid).snapshots().map((s) => s.data());
   }
 
+  /// Sekali baca (untuk tombol "Gunakan alamat saya"). Mengembalikan null jika gagal.
+  Future<Map<String, dynamic>?> getProfile(String uid) async {
+    try {
+      final doc = await _db.collection('users').doc(uid).get();
+      return doc.data();
+    } catch (e) {
+      debugPrint('Gagal membaca profil: $e');
+      return null;
+    }
+  }
+
   // ------------------------------------------------------- Terjemah error
   String _message(FirebaseAuthException e) {
     switch (e.code) {
