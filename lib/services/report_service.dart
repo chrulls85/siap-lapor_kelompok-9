@@ -35,6 +35,42 @@ class ReportService {
     });
   }
 
+  /// SEMUA laporan (khusus admin; aturan Firestore menolak untuk warga).
+  /// Dibatasi 200 terbaru; nanti bisa dibuat per halaman.
+  Stream<List<Report>> watchAllReports() {
+    return _col
+        .orderBy('createdAt', descending: true)
+        .limit(200)
+        .snapshots()
+        .map((snap) => snap.docs.map(Report.fromDoc).toList());
+  }
+
+  /// Admin mengubah status dan catatan sebuah laporan.
+  Future<void> updateStatus({
+    required String id,
+    required ReportStatus status,
+    required String catatan,
+    required String adminUid,
+  }) async {
+    try {
+      await _col.doc(id).update({
+        'status': status.name,
+        'catatan': catatan.trim(),
+        'updatedAt': FieldValue.serverTimestamp(),
+        'handledBy': adminUid,
+      }).timeout(const Duration(seconds: 15));
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        throw const ReportException(
+          'Ditolak: akun ini bukan admin atau firestore.rules belum di-Publish.',
+        );
+      }
+      throw ReportException('Gagal menyimpan (${e.code}). Coba lagi.');
+    } on TimeoutException {
+      throw const ReportException('Koneksi lambat. Coba lagi sebentar.');
+    }
+  }
+
   /// Menyimpan pengaduan baru. Status awal selalu "menunggu".
   Future<void> create({
     required String uid,

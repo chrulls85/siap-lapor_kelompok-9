@@ -51,19 +51,19 @@ void showReportDetail(BuildContext context, Report r) {
             const SizedBox(height: 14),
             _StatusNote(report: r),
             const SizedBox(height: 18),
-            _Row(label: 'Kategori', value: r.category.label),
-            _Row(label: 'Lokasi kejadian', value: r.lokasi),
-            _Row(
+            DetailRow(label: 'Kategori', value: r.category.label),
+            DetailRow(label: 'Lokasi kejadian', value: r.lokasi),
+            DetailRow(
               label: 'Tanggal kejadian',
               value: r.tanggalKejadian == null
                   ? '-'
                   : formatTanggalPanjang(r.tanggalKejadian!),
             ),
-            _Row(
+            DetailRow(
               label: 'Dikirim',
               value: r.createdAt == null ? 'Baru saja' : formatTanggalPanjang(r.createdAt!),
             ),
-            _Row(
+            DetailRow(
               label: 'Identitas',
               value: r.anonim ? 'Disamarkan' : 'Ditampilkan',
             ),
@@ -147,11 +147,11 @@ class ReportStatusIcon extends StatelessWidget {
   }
 }
 
-class _Row extends StatelessWidget {
+class DetailRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const _Row({required this.label, required this.value});
+  const DetailRow({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart' show FirebaseException;
 import 'package:flutter/foundation.dart';
 
 /// Error yang pesannya sudah siap ditampilkan ke pengguna.
@@ -103,6 +104,53 @@ class AuthService {
     } catch (e) {
       debugPrint('Gagal membaca profil: $e');
       return null;
+    }
+  }
+
+  // ------------------------------------------------------------------ Role
+  /// Peran disimpan di Firestore: users/{uid}.role  ("warga" atau "admin").
+  /// Pengecekan di aplikasi ini hanya untuk tampilan; yang benar-benar
+  /// mengunci data adalah firestore.rules.
+  static bool isAdmin(Map<String, dynamic>? profile) => profile?['role'] == 'admin';
+
+  // ------------------------------------------------------------ Edit profil
+  Future<void> updateProfile({
+    required String uid,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      await _db.collection('users').doc(uid).update(data);
+    } on FirebaseException catch (e) {
+      if (e.code != 'not-found') rethrow;
+      // Dokumen profil belum ada (mis. gagal tersimpan saat daftar): buat baru.
+      await _db.collection('users').doc(uid).set({
+        ...data,
+        'email': currentUser?.email ?? '',
+        'role': 'warga',
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    }
+    final nama = data['nama'];
+    if (nama is String && nama.isNotEmpty) {
+      await currentUser?.updateDisplayName(nama);
+    }
+  }
+
+  // ------------------------------------------------------ Verifikasi email
+  /// Memuat ulang data akun dari server (untuk status emailVerified terbaru).
+  Future<void> refreshUser() async {
+    try {
+      await _auth.currentUser?.reload();
+    } catch (e) {
+      debugPrint('Gagal memuat ulang akun: $e');
+    }
+  }
+
+  Future<void> sendEmailVerification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(_message(e));
     }
   }
 
