@@ -4,13 +4,17 @@ import '../../models/report.dart';
 import '../../services/auth_service.dart';
 import '../../services/report_service.dart';
 import '../../utils/formatters.dart';
+import '../../widgets/admin_report_sheet.dart';
 import '../../widgets/report_detail_sheet.dart';
 import '../../widgets/status_chip.dart';
 
 class LaporanTab extends StatefulWidget {
-  final VoidCallback onCreateReport;
+  final VoidCallback? onCreateReport;
 
-  const LaporanTab({super.key, required this.onCreateReport});
+  /// true = daftar SEMUA laporan warga dan tap membuka sheet ubah status.
+  final bool adminMode;
+
+  const LaporanTab({super.key, this.onCreateReport, this.adminMode = false});
 
   @override
   State<LaporanTab> createState() => _LaporanTabState();
@@ -28,9 +32,13 @@ class _LaporanTabState extends State<LaporanTab> {
   void initState() {
     super.initState();
     final uid = AuthService.instance.currentUser?.uid;
-    _stream = uid == null
-        ? const Stream.empty()
-        : ReportService.instance.watchMyReports(uid);
+    if (widget.adminMode) {
+      _stream = ReportService.instance.watchAllReports();
+    } else {
+      _stream = uid == null
+          ? const Stream.empty()
+          : ReportService.instance.watchMyReports(uid);
+    }
   }
 
   @override
@@ -66,18 +74,20 @@ class _LaporanTabState extends State<LaporanTab> {
           return ListView(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
             children: [
-              const Text(
-                'Laporan Saya',
-                style: TextStyle(
+              Text(
+                widget.adminMode ? 'Semua Laporan' : 'Laporan Saya',
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textDark,
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Pantau setiap langkah tindak lanjut aduan.',
-                style: TextStyle(fontSize: 13, color: AppColors.textMuted),
+              Text(
+                widget.adminMode
+                    ? 'Ketuk laporan untuk mengubah status.'
+                    : 'Pantau setiap langkah tindak lanjut aduan.',
+                style: const TextStyle(fontSize: 13, color: AppColors.textMuted),
               ),
               const SizedBox(height: 16),
 
@@ -186,8 +196,10 @@ class _LaporanTabState extends State<LaporanTab> {
                 _Empty(
                   icon: Icons.inbox_outlined,
                   title: 'Belum ada laporan',
-                  message: 'Pengaduan yang Anda kirim akan muncul di sini lengkap dengan statusnya.',
-                  actionLabel: 'Buat pengaduan',
+                  message: widget.adminMode
+                      ? 'Belum ada pengaduan dari warga.'
+                      : 'Pengaduan yang Anda kirim akan muncul di sini lengkap dengan statusnya.',
+                  actionLabel: widget.adminMode ? null : 'Buat pengaduan',
                   onAction: widget.onCreateReport,
                 )
               else if (shown.isEmpty)
@@ -198,7 +210,7 @@ class _LaporanTabState extends State<LaporanTab> {
                 )
               else
                 for (final r in shown) ...[
-                  _ReportCard(report: r),
+                  _ReportCard(report: r, adminMode: widget.adminMode),
                   const SizedBox(height: 12),
                 ],
             ],
@@ -247,8 +259,9 @@ class _FilterChip extends StatelessWidget {
 
 class _ReportCard extends StatelessWidget {
   final Report report;
+  final bool adminMode;
 
-  const _ReportCard({required this.report});
+  const _ReportCard({required this.report, required this.adminMode});
 
   @override
   Widget build(BuildContext context) {
@@ -257,7 +270,9 @@ class _ReportCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () => showReportDetail(context, report),
+        onTap: () => adminMode
+            ? showAdminReportSheet(context, report)
+            : showReportDetail(context, report),
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(

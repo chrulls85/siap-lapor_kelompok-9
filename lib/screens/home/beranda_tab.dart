@@ -7,6 +7,7 @@ import '../../services/report_service.dart';
 import '../../utils/formatters.dart';
 import '../../widgets/auth_widgets.dart';
 import '../../widgets/buttons.dart';
+import '../../widgets/stat_card.dart';
 import '../../widgets/status_chip.dart';
 
 /// Nama untuk sapaan: dari profil Firestore, lalu dari Auth, lalu "Warga".
@@ -89,7 +90,7 @@ class _BerandaTabState extends State<BerandaTab> {
                   Row(
                     children: [
                       Expanded(
-                        child: _StatCard(
+                        child: StatCard(
                           value: reports.length,
                           label: 'Total laporan',
                           color: AppColors.primary,
@@ -97,7 +98,7 @@ class _BerandaTabState extends State<BerandaTab> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _StatCard(
+                        child: StatCard(
                           value: diproses,
                           label: 'Diproses',
                           color: AppColors.warning,
@@ -105,7 +106,7 @@ class _BerandaTabState extends State<BerandaTab> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _StatCard(
+                        child: StatCard(
                           value: selesai,
                           label: 'Selesai',
                           color: AppColors.success,
@@ -351,50 +352,6 @@ class _SectionTitle extends StatelessWidget {
         fontSize: 16,
         fontWeight: FontWeight.bold,
         color: AppColors.textDark,
-      ),
-    );
-  }
-}
-
-class _StatCard extends StatelessWidget {
-  final int value;
-  final String label;
-  final Color color;
-
-  const _StatCard({
-    required this.value,
-    required this.label,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '$value',
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 11.5, color: AppColors.textMuted),
-          ),
-        ],
       ),
     );
   }

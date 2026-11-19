@@ -28,3 +28,8 @@ String timeAgo(DateTime? time) {
   if (diff.inDays < 7) return '${diff.inDays} hari lalu';
   return formatTanggal(time);
 }
+
+/// Contoh: "September 2026".
+String formatBulanTahun(DateTime d) => '${_bulanPanjang[d.month - 1]} ${d.year}';
+
+bool isSameMonth(DateTime a, DateTime b) => a.year == b.year && a.month == b.month;

@@ -86,4 +86,3 @@ Repository dikelola menggunakan GitHub untuk mendukung kolaborasi, pembaruan kod
 
 ---
 
-**SIAP LAPOR – Sampaikan Pengaduan, Pantau Penanganan.**
