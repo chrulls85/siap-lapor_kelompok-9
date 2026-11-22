@@ -5,6 +5,7 @@ import '../../services/auth_service.dart';
 import '../../utils/formatters.dart';
 import '../../widgets/auth_widgets.dart';
 import '../edit_profile_page.dart';
+import '../help_page.dart';
 import 'beranda_tab.dart' show displayNameOf;
 
 class ProfilTab extends StatefulWidget {
@@ -285,9 +286,8 @@ class _ProfilTabState extends State<ProfilTab> {
                   _MenuTile(
                     icon: Icons.help_outline_rounded,
                     label: 'Pusat bantuan',
-                    onTap: () => showAppSnackBar(
-                      ScaffoldMessenger.of(context),
-                      'Halaman bantuan belum tersedia.',
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const HelpPage()),
                     ),
                   ),
                   _MenuTile(

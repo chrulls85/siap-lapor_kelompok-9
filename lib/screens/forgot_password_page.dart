@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../constrants/colors.dart';
+import 'help_page.dart';
 import '../services/auth_service.dart';
 import '../utils/validators.dart';
 import '../widgets/auth_widgets.dart';
@@ -199,9 +200,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       style: TextStyle(color: AppColors.textMuted, fontSize: 13),
                     ),
                     GestureDetector(
-                      onTap: () => showAppSnackBar(
-                        ScaffoldMessenger.of(context),
-                        'Halaman bantuan belum tersedia.',
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const HelpPage()),
                       ),
                       child: const Text(
                         'Hubungi bantuan',
