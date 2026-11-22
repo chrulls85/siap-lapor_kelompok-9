@@ -62,7 +62,17 @@ class _AdminDashboardTabState extends State<AdminDashboardTab> {
                       child: const SizedBox(
                         width: 44,
                         height: 44,
-                        child: Icon(Icons.notifications_none_rounded, color: AppColors.textDark),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Icon(Icons.notifications_none_rounded, color: AppColors.textDark),
+                            Positioned(
+                              top: 11,
+                              right: 12,
+                              child: CircleAvatar(radius: 4, backgroundColor: AppColors.primary),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -89,7 +99,7 @@ class _AdminDashboardTabState extends State<AdminDashboardTab> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(
-                      'Admin aktif',
+                      'Admin kota',
                       style: TextStyle(
                         fontSize: 11.5,
                         fontWeight: FontWeight.bold,
@@ -101,7 +111,7 @@ class _AdminDashboardTabState extends State<AdminDashboardTab> {
               ),
               const SizedBox(height: 4),
               const Text(
-                'Pantau dan tindak lanjuti aduan warga.',
+                'Pantau dan tindak lanjuti aduan warga Bekasi.',
                 style: TextStyle(fontSize: 13, color: AppColors.textMuted),
               ),
               const SizedBox(height: 22),
@@ -410,7 +420,7 @@ class _PriorityCard extends StatelessWidget {
             height: 46,
             child: TextButton.icon(
               onPressed: () => showAdminReportSheet(context, report),
-              icon: const Icon(Icons.assignment_turned_in_outlined, size: 18),
+              icon: const Icon(Icons.person_add_alt_1_outlined, size: 18),
               label: const Text(
                 'Proses laporan',
                 style: TextStyle(fontWeight: FontWeight.bold),

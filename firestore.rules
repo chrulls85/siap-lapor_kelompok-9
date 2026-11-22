@@ -21,6 +21,11 @@ service cloud.firestore {
                     && request.resource.data.role == resource.data.role;
     }
 
+    // Petugas lapangan: hanya admin yang boleh membaca dan mengelola.
+    match /petugas/{petugasId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
     match /reports/{reportId} {
       // Warga: hanya laporan miliknya. Admin: semua laporan.
       allow read: if request.auth != null

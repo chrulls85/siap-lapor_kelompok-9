@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../constrants/colors.dart';
-import '../../widgets/coming_soon.dart';
 import '../home/laporan_tab.dart';
-import '../home/profil_tab.dart';
 import 'admin_dashboard_tab.dart';
+import 'admin_profil_tab.dart';
+import 'petugas_tab.dart';
 
 /// Kerangka halaman untuk akun dengan role "admin".
 class AdminHomePage extends StatefulWidget {
@@ -27,8 +27,8 @@ class _AdminHomePageState extends State<AdminHomePage> {
         children: [
           AdminDashboardTab(onSeeAll: () => _go(1)),
           const LaporanTab(adminMode: true),
-          const ComingSoonTab(icon: Icons.groups_outlined, title: 'Petugas'),
-          const ProfilTab(isAdmin: true),
+          const PetugasTab(),
+          const AdminProfilTab(),
         ],
       ),
       bottomNavigationBar: NavigationBar(
